@@ -239,7 +239,7 @@ function Field({
   className?: string;
 }) {
   return (
-    <div className={`min-w-0 ${className ?? ""}`}>
+    <div className={`min-w-0 overflow-hidden ${className ?? ""}`}>
       <label className="mb-2 block text-xs font-medium text-ink-muted" htmlFor={name}>
         {label}
       </label>
@@ -250,9 +250,10 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         aria-invalid={error}
-        className={`h-12 w-full min-w-0 max-w-full border bg-bg-soft px-3.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-dim focus:border-accent-bright ${
-          error ? "border-accent" : "border-border"
-        }`}
+        style={{ width: "100%" }}
+        className={`box-border h-12 w-full min-w-0 max-w-full overflow-hidden border bg-bg-soft text-sm text-ink outline-none transition-colors placeholder:text-ink-dim focus:border-accent-bright ${
+          type === "date" ? "px-2" : "px-3.5"
+        } ${error ? "border-accent" : "border-border"}`}
       />
       {error && errorMsg && <p className="mt-1.5 text-xs text-accent-bright">{errorMsg}</p>}
     </div>
