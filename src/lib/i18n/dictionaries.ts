@@ -2,7 +2,7 @@ const ru = {
   meta: {
     title: "AP Autoservis Č.K — Автосервис в Чешском Крумлове",
     description:
-      "AP Autoservis Č.K — ремонт ходовой, замена сцепления и ремней, компьютерная диагностика, шиномонтаж и заправка кондиционера в Чешском Крумлове. Гарантия на все работы, эвакуатор 24/7.",
+      "Автосервис в Чешском Крумлове: ремонт ходовой, компьютерная диагностика, шиномонтаж, детейлинг. Гарантия на работы, эвакуатор 24/7. Записывайтесь онлайн.",
   },
   nav: {
     services: "Услуги",
@@ -459,7 +459,7 @@ const cs = {
   meta: {
     title: "AP Autoservis Č.K — Autoservis v Českém Krumlově",
     description:
-      "AP Autoservis Č.K — oprava podvozku, výměna spojky a řemenů, počítačová diagnostika, pneuservis a plnění klimatizace v Českém Krumlově. Záruka na veškeré práce, odtahová služba 24/7.",
+      "Autoservis v Českém Krumlově: oprava podvozku, počítačová diagnostika, pneuservis, detailing. Záruka na práce, odtahová služba 24/7. Objednejte se online.",
   },
   nav: {
     services: "Služby",

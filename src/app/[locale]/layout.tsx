@@ -18,8 +18,6 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
-const siteUrl = "https://at-autoservis-cb.example";
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -32,16 +30,37 @@ export async function generateMetadata({
   const { locale: rawLocale } = await params;
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dict = getDictionary(locale);
+  const ogLocale = locale === "ru" ? "ru_RU" : "cs_CZ";
 
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(siteConfig.siteUrl),
     title: dict.meta.title,
     description: dict.meta.description,
+    keywords:
+      locale === "ru"
+        ? [
+            "автосервис Чешский Крумлов",
+            "ремонт автомобилей Český Krumlov",
+            "компьютерная диагностика",
+            "шиномонтаж",
+            "детейлинг автомобиля",
+            "ремонт ходовой части",
+          ]
+        : [
+            "autoservis Český Krumlov",
+            "oprava aut Český Krumlov",
+            "počítačová diagnostika",
+            "pneuservis",
+            "detailing vozidel",
+            "oprava podvozku",
+          ],
+    authors: [{ name: siteConfig.name }],
     alternates: {
       canonical: `/${locale}`,
       languages: {
         ru: "/ru",
         cs: "/cs",
+        "x-default": "/ru",
       },
     },
     openGraph: {
@@ -49,12 +68,31 @@ export async function generateMetadata({
       description: dict.meta.description,
       url: `/${locale}`,
       siteName: siteConfig.name,
-      locale: locale === "ru" ? "ru_RU" : "cs_CZ",
+      locale: ogLocale,
       type: "website",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.title,
+      description: dict.meta.description,
+      images: ["/og-image.png"],
     },
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+      },
     },
   };
 }
@@ -69,11 +107,13 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  const dict = getDictionary(locale);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     name: siteConfig.name,
-    image: `${siteUrl}/og.png`,
+    image: `${siteConfig.siteUrl}/og-image.png`,
     telephone: siteConfig.phoneDisplay,
     address: {
       "@type": "PostalAddress",
@@ -82,6 +122,15 @@ export default async function LocaleLayout({
       addressLocality: "Český Krumlov",
       addressCountry: "CZ",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.lat,
+      longitude: siteConfig.geo.lng,
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Český Krumlov",
+    },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -89,7 +138,19 @@ export default async function LocaleLayout({
       closes: "18:00",
     },
     sameAs: [siteConfig.facebookUrl],
-    url: `${siteUrl}/${locale}`,
+    url: `${siteConfig.siteUrl}/${locale}`,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: dict.services.title,
+      itemListElement: [...dict.services.items, ...dict.detailingServices.items].map((s) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: s.title,
+          description: s.short,
+        },
+      })),
+    },
   };
 
   return (

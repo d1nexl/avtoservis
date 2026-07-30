@@ -1,5 +1,7 @@
 export const siteConfig = {
   name: "AP Autoservis Č.K",
+  siteUrl: "https://avtoservis-rust.vercel.app",
+  geo: { lat: 48.8212984, lng: 14.3123939 },
   phoneDisplay: "+420 773 631 962",
   phoneHref: "tel:+420773631962",
   viberHref: "viber://contact?number=%2B420773631962",
