@@ -10,4 +10,5 @@ export const siteConfig = {
     "https://www.google.com/maps?q=AP+autoservis+%C4%8C.K,+Vy%C5%A1n%C3%BD+100,+381+01+%C4%8Cesk%C3%BD+Krumlov+1&ftid=0x47735d2ab6d1952b:0xeb00dfd9c8c5f687&output=embed",
   mapLinkSrc:
     "https://www.google.com/maps?q=AP+autoservis+%C4%8C.K,+Vy%C5%A1n%C3%BD+100,+381+01+%C4%8Cesk%C3%BD+Krumlov+1&ftid=0x47735d2ab6d1952b:0xeb00dfd9c8c5f687",
+  web3formsAccessKey: "356b1ba8-1f3f-4ae5-90af-2c4ba24da6c8",
 } as const;

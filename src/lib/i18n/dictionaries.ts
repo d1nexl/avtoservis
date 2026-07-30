@@ -391,10 +391,19 @@ const ru = {
     empty: "Здесь скоро появятся реальные отзывы наших клиентов.",
     cta: "Отзывы на Facebook",
   },
-  cta: {
-    title: "Возникла проблема с автомобилем?",
-    desc: "Запишитесь на диагностику — определим причину и предложим решение.",
-    button: "Записаться на сервис",
+  ceo: {
+    eyebrow: "ОСНОВАТЕЛЬ СЕРВИСА",
+    name: "Андрей",
+    role: "CEO, AP Autoservis Č.K",
+    bio: "Андрей начинал как автомеханик — и до сих пор считает, что лучший руководитель сервиса тот, кто сам может открыть капот и найти неисправность. Он лично отвечает за качество каждого ремонта и следит, чтобы клиенты получали честный диагноз и понятную цену — без лишних работ и скрытых доплат.",
+    quote: "Я хочу, чтобы каждый клиент доверял нам так же, как доверял бы своему другу-механику.",
+    points: [
+      "Лично контролирует качество ремонта",
+      "На связи напрямую по телефону и Viber",
+      "Начинал карьеру как автомеханик",
+    ],
+    contactCta: "Написать Андрею",
+    photoCaption: "Андрей — CEO",
   },
   booking: {
     eyebrow: "ЗАПИСЬ",
@@ -420,6 +429,7 @@ const ru = {
     callBtn: "Позвонить",
     viberBtn: "Написать в Viber",
     errorRequired: "Заполните это поле",
+    errorSubmit: "Не удалось отправить заявку. Попробуйте позвонить нам напрямую.",
   },
   contacts: {
     eyebrow: "КОНТАКТЫ",
@@ -838,10 +848,19 @@ const cs = {
     empty: "Zde se brzy objeví skutečné recenze našich zákazníků.",
     cta: "Recenze na Facebooku",
   },
-  cta: {
-    title: "Máte problém s autem?",
-    desc: "Objednejte se na diagnostiku — zjistíme příčinu a navrhneme řešení.",
-    button: "Objednat se do servisu",
+  ceo: {
+    eyebrow: "ZAKLADATEL SERVISU",
+    name: "Andrei",
+    role: "Jednatel, AP Autoservis Č.K",
+    bio: "Andrei začínal jako automechanik — a dodnes věří, že nejlepší vedoucí servisu je ten, kdo sám dokáže otevřít kapotu a najít závadu. Osobně odpovídá za kvalitu každé opravy a dbá na to, aby zákazníci dostali poctivou diagnózu a jasnou cenu — bez zbytečných prací a skrytých doplatků.",
+    quote: "Chci, aby nám každý zákazník důvěřoval stejně, jako by důvěřoval svému kamarádovi mechanikovi.",
+    points: [
+      "Osobně kontroluje kvalitu oprav",
+      "K dispozici přímo na telefonu i Viberu",
+      "Kariéru začínal jako automechanik",
+    ],
+    contactCta: "Napsat Andreiovi",
+    photoCaption: "Andrei — Jednatel",
   },
   booking: {
     eyebrow: "OBJEDNÁVKA",
@@ -867,6 +886,7 @@ const cs = {
     callBtn: "Zavolat",
     viberBtn: "Napsat na Viber",
     errorRequired: "Vyplňte toto pole",
+    errorSubmit: "Poptávku se nepodařilo odeslat. Zkuste nám prosím zavolat přímo.",
   },
   contacts: {
     eyebrow: "KONTAKTY",

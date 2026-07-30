@@ -8,7 +8,7 @@ import { Process } from "@/components/Process";
 import { WhyUs } from "@/components/WhyUs";
 import { Gallery } from "@/components/Gallery";
 import { Reviews } from "@/components/Reviews";
-import { CTA } from "@/components/CTA";
+import { CEO } from "@/components/CEO";
 import { Booking } from "@/components/Booking";
 import { Contacts } from "@/components/Contacts";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
@@ -34,7 +34,7 @@ export default async function Home({
         <WhyUs dict={dict} />
         <Gallery dict={dict} />
         <Reviews dict={dict} />
-        <CTA dict={dict} />
+        <CEO dict={dict} />
         <Booking dict={dict} />
         <Contacts dict={dict} />
       </main>

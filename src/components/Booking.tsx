@@ -9,17 +9,21 @@ import { Reveal } from "./ui/Reveal";
 import { siteConfig } from "@/lib/siteConfig";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 
-type Status = "idle" | "submitting" | "success";
+type Status = "idle" | "submitting" | "success" | "error";
 
 export function Booking({ dict }: { dict: Dictionary }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const name = String(form.get("name") ?? "").trim();
     const phone = String(form.get("phone") ?? "").trim();
+    const car = String(form.get("car") ?? "").trim();
+    const service = String(form.get("service") ?? "").trim();
+    const date = String(form.get("date") ?? "").trim();
+    const comment = String(form.get("comment") ?? "").trim();
 
     const nextErrors: Record<string, boolean> = {};
     if (!name) nextErrors.name = true;
@@ -28,9 +32,28 @@ export function Booking({ dict }: { dict: Dictionary }) {
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus("submitting");
-    // TODO: wire to a real backend / lead endpoint (e.g. email API, CRM webhook, Formspree).
-    // Currently simulates a successful submission for the production-ready UI/UX.
-    window.setTimeout(() => setStatus("success"), 1100);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: siteConfig.web3formsAccessKey,
+          subject: `Новая заявка — ${siteConfig.name}`,
+          from_name: siteConfig.name,
+          [dict.booking.name]: name,
+          [dict.booking.phone]: phone,
+          [dict.booking.car]: car,
+          [dict.booking.service]: service,
+          [dict.booking.date]: date,
+          [dict.booking.comment]: comment,
+        }),
+      });
+      const json = await res.json();
+      setStatus(json.success ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -115,7 +138,7 @@ export function Booking({ dict }: { dict: Dictionary }) {
                         name="car"
                         placeholder={dict.booking.carPlaceholder}
                       />
-                      <div>
+                      <div className="min-w-0">
                         <label className="mb-2 block text-xs font-medium text-ink-muted" htmlFor="service">
                           {dict.booking.service}
                         </label>
@@ -123,7 +146,7 @@ export function Booking({ dict }: { dict: Dictionary }) {
                           id="service"
                           name="service"
                           defaultValue=""
-                          className="h-12 w-full border border-border bg-bg-soft px-3.5 text-sm text-ink outline-none transition-colors focus:border-accent-bright"
+                          className="h-12 w-full min-w-0 max-w-full border border-border bg-bg-soft px-3.5 text-sm text-ink outline-none transition-colors focus:border-accent-bright"
                         >
                           <option value="" disabled>
                             {dict.booking.servicePlaceholder}
@@ -163,6 +186,12 @@ export function Booking({ dict }: { dict: Dictionary }) {
                           className="w-full resize-none border border-border bg-bg-soft px-3.5 py-3 text-sm text-ink outline-none transition-colors placeholder:text-ink-dim focus:border-accent-bright"
                         />
                       </div>
+
+                      {status === "error" && (
+                        <p className="sm:col-span-2 text-sm text-accent-bright">
+                          {dict.booking.errorSubmit}
+                        </p>
+                      )}
 
                       <button
                         type="submit"
@@ -210,7 +239,7 @@ function Field({
   className?: string;
 }) {
   return (
-    <div className={className}>
+    <div className={`min-w-0 ${className ?? ""}`}>
       <label className="mb-2 block text-xs font-medium text-ink-muted" htmlFor={name}>
         {label}
       </label>
@@ -221,7 +250,7 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         aria-invalid={error}
-        className={`h-12 w-full border bg-bg-soft px-3.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-dim focus:border-accent-bright ${
+        className={`h-12 w-full min-w-0 max-w-full border bg-bg-soft px-3.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-dim focus:border-accent-bright ${
           error ? "border-accent" : "border-border"
         }`}
       />
