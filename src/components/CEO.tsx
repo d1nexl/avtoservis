@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Phone, Quote, User } from "lucide-react";
+import { Phone, Quote } from "lucide-react";
 import { Container } from "./ui/Container";
 import { Reveal } from "./ui/Reveal";
-import { PlaceholderImage } from "./ui/PlaceholderImage";
 import { siteConfig } from "@/lib/siteConfig";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 
@@ -33,20 +33,22 @@ export function CEO({ dict }: { dict: Dictionary }) {
       <Container>
         <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
           {/* Photo */}
-          <Reveal className="lg:col-span-5">
-            <div
-              ref={ref}
-              onMouseMove={handleMove}
-              onMouseLeave={handleLeave}
-              className="relative mx-auto max-w-sm lg:max-w-none"
-            >
+          <Reveal className="lg:col-span-6">
+            <div ref={ref} onMouseMove={handleMove} onMouseLeave={handleLeave} className="relative">
               <motion.div
                 aria-hidden
                 style={{ x: panelX, y: panelY }}
                 className="pointer-events-none absolute -inset-4 border border-accent-dim"
               />
-              <div className="relative aspect-[4/5] overflow-hidden border border-border-soft">
-                <PlaceholderImage label={dict.ceo.photoCaption} icon={User} className="h-full w-full" />
+              <div className="relative aspect-[4/3] overflow-hidden border border-border-soft">
+                <Image
+                  src="/images/andrei.jpg"
+                  alt={dict.ceo.photoCaption}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  priority
+                />
                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-border bg-bg/80 px-4 py-3 backdrop-blur-sm">
                   <span className="font-data text-[10px] uppercase tracking-[0.14em] text-ink-dim">
                     {dict.ceo.photoCaption}
@@ -58,7 +60,7 @@ export function CEO({ dict }: { dict: Dictionary }) {
           </Reveal>
 
           {/* Content */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             <Reveal>
               <span className="font-data text-xs tracking-[0.2em] text-accent-bright">
                 {dict.ceo.eyebrow}
