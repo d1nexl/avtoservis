@@ -60,7 +60,7 @@ export async function generateMetadata({
       languages: {
         ru: "/ru",
         cs: "/cs",
-        "x-default": "/ru",
+        "x-default": "/cs",
       },
     },
     openGraph: {
